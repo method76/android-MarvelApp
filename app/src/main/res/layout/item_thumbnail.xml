@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    >
+    <ImageView
+        android:id="@+id/grid_item_image"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        />
+    <TextView android:id="@+id/char_nm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:textColor="#ffffff"
+        android:background="#88000000"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:paddingLeft="3dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/btn_hidden"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="@drawable/selector_thumb_grid_item"
+        android:orientation="horizontal"
+        />
+</FrameLayout>

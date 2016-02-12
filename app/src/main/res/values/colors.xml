@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="pressed_tint">#66000000</color>
+    <color name="selected">#66990000</color>
+    <color name="non_pressed">#00000000</color>
+
+    <!-- 레이아웃 배경 컬러 -->
+    <color name="default_background_color">#ffffffff</color>
+    <color name="default_refresh_background_color">#f5f5f5</color>
+    <color name="default_refresh_text_color">#444444</color>
+    <color name="default_main_top_color">#ffffffff</color>
+    <color name="default_main_bottom_color">#ff6f50b5</color>
+    <color name="default_dimming_color">#9000</color>
+    <color name="default_transparency_color">#0000</color>
+    <color name="default_divide_line_color">#d2d2d2</color>
+    <color name="divide_line_color_include_top">#c8c8c8</color>
+
+    <!-- 공통으로 사용할 폰트 컬러 -->
+    <color name="font_color_hint">#aaaaaa</color>
+    <color name="font_color_black">#000</color>
+    <color name="font_color_white">#fff</color>
+    <color name="font_color_product_price">#ba0000</color>
+    <color name="font_color_product_price_disable">#aeaeae</color>
+    <color name="font_color_bottom_descript">#8c867a</color>
+    <color name="font_color_bottom_descript_red">#ff0000</color>
+    <color name="background_color_recently_list">#afafaf</color>
+    <color name="button_color_transparency_normal">#0000</color>
+    <color name="button_color_transparency_focus">#3000</color>
+    <color name="button_color_transparency_violet_focus">#336f50b5</color>
+    <color name="button_color_transparency_find_zipcode_focus">#8c8c8c</color>
+
+    <!-- 로그인 화면에 사용할 폰트 컬러 -->
+    <color name="font_color_intro_text_button_normal">#666666</color>
+    <color name="font_color_intro_text_button_focus">#585474</color>
+
+    <!-- 로그인 화면에 사용할 폰트 컬러 -->
+    <color name="font_color_splash_title">#6c6e70</color>
+    <color name="font_color_splash_bottom">#6c6e70</color>
+    <color name="background_color_transparency">#9000</color>
+
+    <!-- 로그인 화면에 사용할 폰트 컬러 -->
+    <color name="background_color_login_bottom">#eff0f2</color>
+    <color name="font_color_login_label">#39383c</color>
+    <color name="font_color_login_text_input">#444444</color>
+    <color name="font_color_login_title">#ffffff</color>
+    <color name="font_color_login_title_border">#411f8e</color>
+    <color name="font_color_login_description">#555555</color>
+    <color name="font_color_login_find_password_email">#705c93</color>
+    <color name="font_color_login_description_bottom">#777777</color>
+    <color name="font_color_login_description_bottom_violet">#705c93</color>
+    <color name="font_color_login_nfc_description">#666666</color>
+    <color name="font_color_login_radio_button">#2e2e2e</color>
+    <color name="font_color_login_button_normal">#585474</color>
+    <color name="font_color_login_popup_bottom_normal">#777777</color>
+    <color name="font_color_login_popup_bottom_focus">#444444</color>
+    <color name="font_color_login_text_button_normal">#705c93</color>
+    <color name="font_color_login_text_button_focus">#503c73</color>
+
+    <!-- 메인 화면에 사용할 폰트 컬러 -->
+    <color name="font_color_main_quick_menu_basket_counter">#ffffff</color>
+    <color name="font_color_main_quick_menu_basket_counter_focus">#321b67</color>
+    <color name="font_color_main_quick_menu_basket_counter_disable">#5e3ea7</color>
+    <color name="font_color_main_quick_menu_my_point">#3e1b8f</color>
+    <color name="font_color_main_category_normal">#444444</color>
+    <color name="font_color_main_category_focus">#ffffff</color>
+    <color name="font_color_sub1_category_normal">#ffffff</color>
+    <color name="font_color_sub1_category_focus">#ffffff</color>
+    <color name="font_color_sub2_category_normal">#ffffff</color>
+    <color name="font_color_sub2_category_focus">#4c299c</color>
+    <color name="font_color_product_list_title">#ffffff</color>
+    <color name="font_color_product_list_description">#888888</color>
+    <color name="font_color_product_list_name">#333333</color>
+    <color name="font_color_main_product_list_message">#444444</color>
+    <color name="font_color_main_product_list_grade_title">#323232</color>
+    <color name="font_color_main_scroll_page">#3e1b8f</color>
+
+    <!-- 서브 카데고리에 사용할 컬러 -->
+    <color name="background_color_sub1_category_normal">#8d6ed2</color>
+    <color name="background_color_sub1_category_focus">#888888</color>
+    <color name="background_color_sub2_category_normal">#969696</color>
+    <color name="background_color_sub2_category_focus">#ffffff</color>
+    <color name="background_color_product_list_normal">#ffffff</color>
+    <color name="background_color_product_list_focus">#336f50b5</color>
+    <color name="divide_color_product_list">#e1e1e1</color>
+
+    <!-- 상품 상세보기에 사용할 컬러 -->
+    <color name="divide_line_color_product_detail1">#c8c8c8</color>
+    <color name="divide_line_color_product_detail2">#d0d0d0</color>
+    <color name="divide_line_color_product_detail3">#666666</color>
+    <color name="font_color_product_detail_title">#000000</color>
+    <color name="font_color_product_detail_compare">#ffffff</color>
+    <color name="font_color_product_detail_basket">#333333</color>
+    <color name="font_color_product_detail_purchase">#ba0000</color>
+    <color name="font_color_product_detail_button">#ffffff</color>
+    <color name="font_color_product_detail_tab_normal">#afafaf</color>
+    <color name="font_color_product_detail_tab_focus">#4c2b95</color>
+    <color name="font_color_product_detail_compare_title">#ffffff</color>
+    <color name="font_color_product_detail_compare_bottom">#f5f5f5</color>
+    <color name="font_color_product_detail_recommend">#333333</color>
+    <color name="font_color_product_detail_recommend_product">#444444</color>
+    <color name="background_color_product_detail_compare_title">#6f50b5</color>
+    <color name="background_color_product_detail_compare_bottom">#999999</color>
+
+    <!-- 장바구니에 사용할 컬러 -->
+    <color name="font_color_basket_title">#222222</color>
+    <color name="font_color_basket_count">#ffffff</color>
+    <color name="font_color_basket_delete">#666666</color>
+    <color name="divide_line_color_delete">#c8c8c8</color>
+    <color name="font_color_basket_provider_list">#ddcfff</color>
+    <color name="font_color_basket_sub_title">#ffffff</color>
+    <color name="font_color_basket_price">#222222</color>
+    <color name="font_color_basket_button_text">#ffffff</color>
+    <color name="font_color_basket_product_title">#444444</color>
+    <color name="font_color_basket_provider_title">#756d88</color>
+    <color name="font_color_basket_provider_vaule">#888888</color>
+    <color name="font_color_basket_sum_price">#444444</color>
+    <color name="font_color_basket_delivery_text">#6840ae</color>
+    <color name="font_color_basket_delivery_discount_text">#301200</color>
+    <color name="background_color_basket_empty">#e1e1e1</color>
+    <color name="font_color_basket_empty">#444444</color>
+    <color name="divide_line_color_provider">#ebebeb</color>
+    <color name="font_color_provider_price_information">#8c867a</color>
+    <color name="font_color_basket_discount_content">#666666</color>
+    <color name="background_color_basket_discount_title">#e6e6e6</color>
+    <color name="background_color_basket_discount_content">#f5f5f5</color>
+
+    <!-- wish에 사용할 컬러 -->
+    <color name="font_color_wish_button_text">#444444</color>
+    <color name="font_color_wish_button_exit">#ffffff</color>
+    <color name="font_color_wish_category_title">#444444</color>
+    <color name="font_color_wish_category_count">#ffffff</color>
+    <color name="background_color_grid_view">#dcdcdc</color>
+    <color name="font_color_wish_detail_title">#222222</color>
+    <color name="font_color_wish_detail_button">#633687</color>
+    <color name="font_color_wish_detail_grade">#888888</color>
+
+    <!-- 결제에 사용할 컬러 -->
+    <color name="divide_line_color_order_bottom">#cdcdcd</color>
+    <color name="font_color_order_summary">#ffd200</color>
+    <color name="font_color_order_delivery_sub_title">#6840ae</color>
+    <color name="background_color_order_delivery_sub_title">#e8e8e8</color>
+    <color name="font_color_order_delivery_title">#756d88</color>
+    <color name="font_color_order_input_box">#444444</color>
+    <color name="font_color_order_button_action">#4d5863</color>
+    <color name="font_color_order_point_title">#222222</color>
+    <color name="font_color_order_radio_button">#444444</color>
+    <color name="font_color_order_popup_title">#6840ae</color>
+    <color name="font_color_order_popup_message">#666666</color>
+    <color name="font_color_deliver_popup_title">#222222</color>
+    <color name="font_color_deliver_popup_type">#6840ae</color>
+    <color name="font_color_deliver_popup_value">#666666</color>
+    <color name="divide_line_color_deliver_popup">#d2d2d2</color>
+    <color name="font_color_find_zipcode_tab_normal">#969696</color>
+    <color name="font_color_find_zipcode_tab_focus">#ffffff</color>
+    <color name="font_color_deliver_popup_example">#8c867a</color>
+    <color name="font_color_order_popup_red">#ff0000</color>
+
+    <!-- 결제완료에 사용할 컬러 -->
+    <color name="background_color_order_result">#e1e1e1</color>
+    <color name="font_color_order_result_text">#444444</color>
+    <color name="font_color_order_result_button_text">#ffffff</color>
+
+    <!-- 검색에 사용할 컬러 -->
+    <color name="background_color_search_voice">#4b4b49</color>
+    <color name="background_color_search_button_focus">#995634a3</color>
+    <color name="font_color_search_voice_title">#ffffff</color>
+    <color name="font_color_search_voice_description">#ffffff</color>
+    <color name="font_color_search_voice_description_gray">#989898</color>
+    <color name="font_color_search_voice_example">#999999</color>
+    <color name="font_color_search_voice_example_list_normal">#d8d8d8</color>
+    <color name="font_color_search_voice_example_list_focus">#ffffff</color>
+    <color name="font_color_search_voice_result">#ffffff</color>
+    <color name="font_color_search_button">#ffffff</color>
+    <color name="font_color_search_text">#222222</color>
+    <color name="background_color_search_init">#eeeeee</color>
+    <color name="font_color_search_list_text">#444444</color>
+    <color name="font_color_search_quick_eng">#9075ce</color>
+    <color name="font_color_search_quick_kor">#8e8e8e</color>
+    <color name="font_color_search_quick_description1">#828282</color>
+    <color name="font_color_search_quick_description2">#a6a6a6</color>
+    <color name="background_color_search_recently">#222222</color>
+    <color name="font_color_search_list_title">#aaaaaa</color>
+    <color name="font_color_search_quick_title">#ff5252</color>
+    <color name="background_color_search_list_view">#414141</color>
+    <color name="font_color_search_list_more">#666666</color>
+    <color name="background_color_barcode_text">#33000000</color>
+    <color name="background_color_search_result_list">#ffffff</color>
+    <color name="background_color_search_result">#e8e8e8</color>
+    <color name="font_color_search_result_title_product">#6840ae</color>
+    <color name="font_color_search_result_title_text">#666666</color>
+
+    <!-- 다이얼로그에 사용할 컬러 -->
+    <color name="font_color_dialog_title">#6840ae</color>
+    <color name="font_color_dialog_message">#222222</color>
+    <color name="divide_line_color_dialog_title">#6840ae</color>
+    <color name="font_color_dialog_button">#666666</color>
+    <color name="background_color_dialog_button_normal">#eeeeee</color>
+    <color name="background_color_dialog_button_focus">#33000000</color>
+    <color name="divide_line_color_dialog_button">#d2d2d2</color>
+    <color name="font_color_dialog_message_gray">#777777</color>
+    <color name="font_color_dialog_message_violet">#585474</color>
+    <color name="background_color_dialog_gray">#eeeef1</color>
+    <color name="background_color_dialog_white">#ffffff</color>
+    <color name="divide_line_color_dialog_split">#ebeaee</color>
+
+    <!-- 바코드 관련 컬러 -->
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color>
+    <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="result_view">#b0000000</color>
+    <color name="possible_result_points">#c0ffbd21</color>
+    <!-- Android standard ICS color -->
+
+
+    <!-- 마이페이지에 사용할 컬러 -->
+    <color name="font_color_mypage_main_username_text">#ffffff</color>
+    <color name="font_color_mypage_main_pointname_text">#d3bfff</color>
+    <color name="font_color_mypage_main_delivery_nomal">#555555</color>
+    <color name="font_color_mypage_main_delivery_focus">#4e2a96</color>
+    <color name="font_color_mypage_main_category_text">#222222</color>
+    <color name="font_color_mypage_delivery_category_text">#756d88</color>
+    <color name="font_color_mypage_delivery_content_text">#444444</color>
+    <color name="font_color_mypage_delivery_product_list_text">#666666</color>
+    <color name="font_color_mypage_delivery_content_effect_text">#ba0000</color>
+    <color name="font_color_mypage_delivery_footer">#8c867a</color>
+    <color name="background_color_delivery_product_list">#f2f2f2</color>
+    <color name="background_color_mypage_info_sub_title">#e8e8e8</color>
+    <color name="background_color_mypage_order_spinner">#f5f5f5</color>
+    <color name="font_color_mypage_info_sub_title">#6840ae</color>
+    <color name="font_color_mypage_address_edit_text">#85769e</color>
+    <color name="font_color_mypage_address_sub_title_text">#222222</color>
+    <color name="font_color_mypage_address_sub_content_text">#666666</color>
+    <color name="font_color_mypage_address_no_text">#444444</color>
+    <color name="font_color_mypage_order_type_text">#888888</color>
+    <color name="background_color_mypage_setting_qna_content">#f3f3f3</color>
+    <color name="font_color_mypage_setting_qna_value">#ba0200</color>
+    <color name="font_color_mypage_setting_qna_time">#8e8777</color>
+    <color name="background_color_mypage_order_detail_divider">#ffffff</color>
+    <color name="font_color_warning_yellow">#ffc400</color>
+
+    <color name="audi_red">#cc0033</color>
+    <color name="audi_pale_grey_30">#d5d9d8</color>
+    <color name="kakao_yellow">#fae100</color>
+    <color name="moderate_pink">#ffb4da</color>
+
+</resources>

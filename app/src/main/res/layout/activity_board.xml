@@ -1,0 +1,272 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    >
+
+    <!-- Draw a board -->
+    <android.opengl.GLSurfaceView
+        android:id="@+id/surface_view"
+        android:layout_width="480dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="-36dp"
+        />
+
+    <!-- Arrow button to quit -->
+    <ImageView
+        android:id="@+id/btn_quit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/selec_back_btn"
+        />
+
+    <!-- Opponent Area -->
+    <LinearLayout
+        android:id="@+id/checker_container_opp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="6dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_gravity="left|top"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="#666666"
+            android:text="Opponent's"
+            android:paddingRight="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_yellow_tri_rev"
+            />
+        <ImageView
+            android:id="@+id/slot_11"
+            android:layout_width="21dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="3dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/border_img_opp_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_12"
+            android:layout_width="21dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="3dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/border_img_opp_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_13"
+            android:layout_width="21dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="3dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/border_img_opp_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_14"
+            android:layout_width="21dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="3dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/border_img_opp_norm"
+            />
+    </LinearLayout>
+
+    <!-- Game advisory text area -->
+    <LinearLayout
+        android:id="@+id/advisory_wrapper"
+        android:layout_width="160dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        >
+        <TextView
+            android:id="@+id/run_advisory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/font_color_order_summary"
+            android:textSize="17dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingBottom="6dp"
+            />
+
+        <!-- Runnable step chooser container -->
+        <LinearLayout
+            android:id="@+id/run_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            >
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Dice aura ! -->
+    <ImageView
+        android:id="@+id/flame_circle"
+        android:layout_width="121.87dp"
+        android:layout_height="130dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginTop="39dp"
+        android:layout_marginRight="12dp"
+        />
+
+    <!-- Dice ! -->
+    <ImageView
+        android:id="@+id/img_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_dice"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        />
+
+    <!-- Dice result -->
+    <ImageView
+        android:id="@+id/dice_result"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginTop="22dp"
+        android:layout_marginRight="30dp"
+        android:visibility="gone"
+        />
+
+    <!-- Your Area -->
+    <LinearLayout
+        android:id="@+id/checker_container_my"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="6dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="left|bottom"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#f0f0f0"
+            android:shadowColor="#000000"
+            android:shadowRadius="3"
+            android:text="Your Runners"
+            android:gravity="bottom"
+            android:paddingRight="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/bg_primary_tri"
+            />
+        <ImageView
+            android:id="@+id/slot_1"
+            android:layout_width="37.5dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            android:padding="3dp"
+            android:background="@drawable/border_img_my_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_2"
+            android:layout_width="37.5dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            android:padding="3dp"
+            android:background="@drawable/border_img_my_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_3"
+            android:layout_width="37.5dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            android:padding="3dp"
+            android:background="@drawable/border_img_my_norm"
+            />
+        <ImageView
+            android:id="@+id/slot_4"
+            android:layout_width="37.5dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_card_back"
+            android:layout_marginRight="5dp"
+            android:scaleType="centerCrop"
+            android:padding="3dp"
+            android:background="@drawable/border_img_my_norm"
+            />
+    </LinearLayout>
+
+    <!-- Winner Area -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:orientation="vertical"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="6dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="#aaaaaa"
+            android:gravity="left"
+            android:text="Prison Breakers"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/esc_cnt_my"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:textStyle="italic"
+                android:textSize="13dp"
+                android:textColor="#aaaaaa"
+                android:layout_marginRight="8dp"
+                android:text="@string/esc_yours"
+                />
+            <TextView
+                android:id="@+id/esc_cnt_opp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:textStyle="italic"
+                android:textSize="13dp"
+                android:textColor="#aaaaaa"
+                android:text="@string/esc_opps"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

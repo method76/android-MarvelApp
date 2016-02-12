@@ -1,0 +1,9 @@
+<resources>>
+
+    <style name="AppTheme.Details.Translucent.Float" parent="AppTheme.Translucent">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="@android:style/Theme.DeviceDefault.Dialog" />
+
+</resources>
