@@ -11,8 +11,10 @@ The shortcut route of Yut-nori is like this.<br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Yut_board.jpg"></p>
 
 <p>There're two types of 'Yut-nori' board, a square type and a circle type.<br>
-<img src="http://suksuk.co.kr/momboard/img/imcho_dora_8.jpg">
-<img src="http://cfile214.uf.daum.net/image/1911024650691A3D0543AE">
+<table style="border:0"><tr><td>
+<img src="http://suksuk.co.kr/momboard/img/imcho_dora_8.jpg"></td><td>
+<img src="http://cfile214.uf.daum.net/image/1911024650691A3D0543AE" width="300"></td></tr></table>
+</p>
 
 <p>You may find how to operate this game app on <br>
 https://www.youtube.com/watch?v=U-1biCahUKY</p>
