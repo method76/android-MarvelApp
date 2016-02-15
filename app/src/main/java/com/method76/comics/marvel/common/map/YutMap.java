@@ -41,8 +41,6 @@ public class YutMap implements AppConst {
 
         // 홈
         BoardStep home = new BoardStep(null, ANGLE_180);
-        // 첫번째 지름길 포인트
-        BoardStep interRT = new BoardStep(borderRoute3, ANGLE_90);
 
         // 둘레길 4
         borderRoute2.add(new BoardStep(null, ANGLE_270));
@@ -68,13 +66,14 @@ public class YutMap implements AppConst {
         borderRoute3.add(new BoardStep(null, ANGLE_270, 1/3f));
         borderRoute3.add(new BoardStep(null, ANGLE_270, 2/3f));
         borderRoute3.addAll(borderRoute2);
+        // 첫번째 지름길 포인트
+        BoardStep interRT = new BoardStep(borderRoute3, ANGLE_90);
 
         // 지름길 4 (두번째 Intersection)
         borderRoute4.add(new BoardStep(null, ANGLE_0, 2/3f));
         borderRoute4.add(new BoardStep(null, ANGLE_0, 1/3f));
         borderRoute4.add(interCenter);
         borderRoute4.addAll(borderRoute5);
-
         // 두번째 지름길 포인트
         BoardStep interLT = new BoardStep(borderRoute4, ANGLE_0);
 

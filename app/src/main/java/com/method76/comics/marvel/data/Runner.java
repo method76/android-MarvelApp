@@ -64,6 +64,10 @@ public class Runner implements AppConst {
         this.position = position;
     }
 
+    public void addPosition(int position) {
+        this.position += position;
+    }
+
     public int getPower() {
         return power;
     }

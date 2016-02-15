@@ -111,7 +111,8 @@ public class BoardStep implements AppConst {
      * @param runner
      * @return
      */
-    public MoveStatus addRunner(Runner runner) {
+    public MoveStatus moveRunner(BoardStep prevStep, Runner runner) {
+        prevStep.removeRunner(runner);
         runner.setRunning(true);
         if(this.currRunners !=null && currRunners.size() > 0){
             // If some runner exists
@@ -136,8 +137,8 @@ public class BoardStep implements AppConst {
         }
     }
 
-    public HashMap<Integer, Runner> getKilledRunners() {
-        return killedRunners;
+    public HashMap<Integer, Runner> toBeKilledRunners() {
+        return this.currRunners;
     }
 
     public boolean isOpponent() {

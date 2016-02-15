@@ -254,6 +254,7 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
     public void onClick(View v) {
         // When you click runner
         disableMovableRunners();
+        removeStep(currStepToMove);
         moveRunner((ImageView) v);
         //For test
 //        testNewCharMove(charToMove);
@@ -318,8 +319,8 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        param.width = dpToPixel(30);
-        param.height = dpToPixel(40);
+        param.width       = dpToPixel(30);
+        param.height      = dpToPixel(40);
         param.rightMargin = dpToPixel(3);
 
         // 주사위 결과 값에 따라 분기
@@ -367,30 +368,30 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         if (isMyTurn) {
             run_advisory.setText("Choose step number to move");
         }else{
-            run_advisory.setText("Opponent is considering...");
+            run_advisory.setText("Opponent is Considering...");
             randIdx = (int)(Math.random()*movableStepsCnt);
         }
 
         if(movableStepsCnt==1){
-            // Todo:
+            // 1개 남으면 바로 선택되게 함
             currStepToMove = (Button)run_count.getChildAt(0);
-            isLastStepNum = true;
-            chooseMovableRunners();
+            chooseMovableRunners(currStepToMove);
             return;
         }
 
+        // 1개 이상이면: 선택할 수 있게 함
         for(int i=0;i<movableStepsCnt;i++){
             // Enlighten available steps
             Button btn = (Button)run_count.getChildAt(i);
-            btn.setBackgroundResource(R.drawable.border_num_choose);
             if(isMyTurn) {
+                btn.setBackgroundResource(R.drawable.border_num_choose);
                 btn.setClickable(true);
             }else{
                 btn.setClickable(false);
-            }
-            if(isMyTurn==false && randIdx==i) {
-                opponentsStepClick(btn);
-                break;
+                if(randIdx==i) {
+                    opponentsStepClick(btn);
+                    break;
+                }
             }
         }
     }
@@ -418,9 +419,10 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         btnStep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeStep((Button) v);
+                currStepToMove = (Button)v;
+                removeStep(currStepToMove);
                 disableMovableSteps();
-                chooseMovableRunners();
+                chooseMovableRunners(null);
             }
         });
         run_count.addView(btnStep);
@@ -439,9 +441,6 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
     }
 
     private void removeStep(Button num){
-        isLastStepNum = false;
-        StepToMoveInfo stepInfo = (StepToMoveInfo)num.getTag();
-        Log.d("removing: " + stepInfo.getStepCnt());
         currStepToMove = num;
         run_count.removeView(num);
     }
@@ -457,19 +456,22 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
 
     /**
      * Let the player choose a Runner to run
+     * @param btnStep : If want remove btn ad param here
      */
-    private void chooseMovableRunners(){
+    private void chooseMovableRunners(Button btnStep){
         int remainderCnt = 0;
         if(this.isMyTurn){
             // If my turn
             run_advisory.setText("Choose a runner to move");
             remainderCnt = cardArrMy.size();
             if(remainderCnt>1){
+                // If remained runner is more than 1
                 for (int i = 0; i < remainderCnt; i++) {
                     cardArrMy.get(i).setBackgroundResource(R.drawable.border_img_choose);
                     cardArrMy.get(i).setClickable(true);
                 }
             }else if(remainderCnt==1){
+                // If remained runner is 1
                 cardArrMy.get(0).setBackgroundResource(R.drawable.border_img_choose);
                 cardArrMy.get(0).setClickable(true);
                 cardArrMy.get(0).performClick();
@@ -482,6 +484,7 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    removeStep(currStepToMove);
                     moveRunner(cardArrOpp.get(idx));
                 }
             }, 2000);
@@ -520,7 +523,6 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         Log.d("moveRunner");
         StringBuffer debugStr = new StringBuffer();
 
-        boolean isEscaped = false;
         final Runner runner = (Runner)runnerView.getTag();
 
         // NullPointer sometimes..
@@ -534,53 +536,59 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
             initializeRunner(runnerView);
         }
 
+        int stepCntMove = ((StepToMoveInfo)currStepToMove.getTag()).getStepCnt();
         // 1-1) 현재 지점이 지름길인가?
         // 1-2) 목적지에 지름길이 있는 지 판단
-        BoardStep currStep = runner.getCurrentRoute().get(runner.getPosition());
+        BoardStep currStep = runner.getCurrentBoardStep();
+        currStep.removeRunner(runner);
         boolean hasShortcut = currStep.getShortcutRoute()!=null?true:false;
         LinkedList<BoardStep> routeToGo;
-        BoardStep destStep = null;
         int destIdx;
 
         if(hasShortcut){
             // 현재 점에 지름길이 있는 경우
-            routeToGo = runner.getCurrentBoardStep().getShortcutRoute();
+            routeToGo = currStep.getShortcutRoute();
             runner.setCurrentRoute(routeToGo);
-            destIdx = -1 + ((StepToMoveInfo)currStepToMove.getTag()).getStepCnt();
-            if(destIdx < routeToGo.size()) {
-                destStep = routeToGo.get(destIdx);
-            }else{
-                isEscaped = true;
-            }
+            destIdx = -1 + stepCntMove;
         }else{
             // 현재 점에 지름길이 없는 경우
             routeToGo = runner.getCurrentRoute();
-            destIdx = runner.getPosition()
-                    + ((StepToMoveInfo)currStepToMove.getTag()).getStepCnt();
-            if(destIdx < routeToGo.size()) {
-                destStep = routeToGo.get(destIdx);
-            }else{
-                isEscaped = true;
-            }
+            destIdx = runner.getPosition() + stepCntMove;
         }
-
-        // 목적지에 다른 러너가 있으면
-        if(destStep!=null){
-            txt_debug.setText("occupy: " + destStep.isOccupied() + ", isOpponent: "
-                    + destStep.isOpponent(runner.isOpponent()));
+        BoardStep destStep = null;
+        if(destIdx < routeToGo.size()) {
+            destStep = routeToGo.get(destIdx);
+            // 목적지에 다른 러너가 있으면
             if(destStep.isOccupied()) {
                 // 상대방이 점유 중이면
                 if (destStep.isOpponent(runner.isOpponent())) {
                     // When killed enemy
-                    final HashMap<Integer, Runner> killed = destStep.getKilledRunners();
-                    retreatKilledRunner(runner, killed);
+                    HashMap<Integer, Runner> killed = destStep.toBeKilledRunners();
+                    retreatKilledRunner(runnerView, killed, destStep);
+                    // Roll once again
+                    txt_debug.setText("occupy: " + destStep.isOccupied() + ", isOpponent: "
+                            + destStep.isOpponent(runner.isOpponent()) + ", killed: " + killed.size());
+
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(isMyTurn){
+                                showMyTurn();
+                            }else{
+                                showOpponentsTurn();
+                            }
+                        }
+                    }, OPPONENT_CONSIDER_INTERVAL);
+                    return;
                 } else {
                     // When joined with teammates
                     String host = isMyTurn ? "Your" : "Opponent's";
                     Toast.makeText(this, host + " runner '" + runner.getName()
                             + "' joined with teammate!", Toast.LENGTH_SHORT).show();
-
+                    txt_debug.setText("occupy: " + destStep.isOccupied() + ", isOpponent: "
+                            + destStep.isOpponent(runner.isOpponent()));
                 }
+
             }else{
                 // 상대방이 점유 중이 아니면
                 txt_debug.setText("occupy: false");
@@ -592,26 +600,32 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
                     }
                 }
             }
-        }
-
-        if(isEscaped){
+            MoveStatus status = runnerMovingProcess(runnerView, destStep);
+            runner.setPosition(destIdx);
+        }else{
+            // When escaped
             // If runner has escaped
             destStep = yMap.getMainRoute().get(0);
             // Escape!!
-            isEscaped = true;
             runnerView.setVisibility(View.GONE);
-            String prefix = null;
+            String prefix = "";
             if(isMyTurn){
                 prefix = "Your";
                 escapeCnt[0]++;
                 esc_cnt_my.setText(String.format(getString(R.string.esc_yours), escapeCnt[0]));
-
                 cardArrMy.remove(runnerView);
             }else{
                 prefix = "Opponent's";
                 escapeCnt[1]++;
                 esc_cnt_opp.setText(String.format(getString(R.string.esc_opps), escapeCnt[1]));
                 cardArrOpp.remove(runnerView);
+            }
+            if (escapeCnt[0] == 4 || escapeCnt[1] == 4) {
+                // Game finished
+                String msg = isMyTurn ? "You have won the game. Do you want to retry?"
+                        : "Opponent has won the game. Do you want to retry?";
+                dialogRetryConfirm.setMessage(msg);
+                dialogRetryConfirm.show();
             }
             Toast.makeText(this, prefix + " runner '" + runner.getName()
                     + "' escaped from the prison", Toast.LENGTH_SHORT).show();
@@ -659,24 +673,6 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         runnerView.startAnimation(set);*/
 //        runnerView.startAnimation(ani);
 
-        if (escapeCnt[0] == 4 || escapeCnt[1] == 4) {
-            // Game finished
-            String msg = isMyTurn ? "You have won the game. Do you want to retry?"
-                    : "Opponent has won the game. Do you want to retry?";
-            dialogRetryConfirm.setMessage(msg);
-            dialogRetryConfirm.show();
-        }
-
-        if(isEscaped==false) {
-            runnerMovingProcess(runnerView, destStep);
-            runner.setPosition(destIdx);
-        }
-
-        if(isLastStepNum){
-            run_count.removeAllViews();
-            isLastStepNum = false;
-        }
-
         // If single or last of Yut
         if (run_count.getChildCount() == 0) {
             initAndChangeTurn();
@@ -701,16 +697,14 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         LinkedList<BoardStep> currRoute = runner.getCurrentRoute();
         // 다음 경로
         LinkedList<BoardStep> newRoute = currStep.getShortcutRoute();
-        // Todo: Remove then add
-        currStep.removeRunner(runner);
 
         MoveStatus status = null;
         if(newRoute!=null){
             // If has shortcut route: Exception
-            status = newRoute.get(stepCnt).addRunner(runner);
+            status = newRoute.get(stepCnt).moveRunner(currStep, runner);
         }else{
             // Else
-            status = currRoute.get(stepCnt).addRunner(runner);
+            status = currRoute.get(stepCnt).moveRunner(currStep, runner);
         }
 
         // Real moving
@@ -728,56 +722,72 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
 
 
     private void initializeRunner(ImageView runnerView){
-        // Remove from bench
-        if (isMyTurn) {
-            checker_container_my.removeView(runnerView);
-        } else {
-            checker_container_opp.removeView(runnerView);
+        Runner runner = (Runner)runnerView.getTag();
+        if(runner.isRunning()==false) {
+            // Remove from bench
+            if (isMyTurn) {
+                checker_container_my.removeView(runnerView);
+            } else {
+                checker_container_opp.removeView(runnerView);
+            }
         }
-        Runner runner = (Runner) runnerView.getTag();
         LinkedList<BoardStep> mainRoute = yMap.getMainRoute();
         runner.setCurrentRoute(mainRoute);
 
         // 러너 이미지에 스타일 주기
         FrameLayout.LayoutParams param = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        param.gravity    = Gravity.TOP | Gravity.LEFT;
+        param.gravity = Gravity.TOP | Gravity.LEFT;
         param.leftMargin = yMap.getStartPoint()[0];
-        param.topMargin  = yMap.getStartPoint()[1];
+        param.topMargin = yMap.getStartPoint()[1];
         Log.d("Start point: " + param.leftMargin + "/" + param.topMargin);
         runnerView.setLayoutParams(param);
-        content_view.addView(runnerView);
+
+        if(runner.isRunning()==false) {
+            content_view.addView(runnerView);
+        }
+
     }
+
+
     /**
      *
      */
-    private void retreatKilledRunner(Runner killer, HashMap<Integer, Runner> killed){
+    private void retreatKilledRunner(ImageView killerView, HashMap<Integer, Runner> killed,
+                                     BoardStep destStep){
 
+        Runner killer = (Runner)killerView.getTag();
         // 돌려보내고,
         for(Map.Entry<Integer, Runner> item : killed.entrySet()){
-            Runner runner = item.getValue();
-            ImageView runnerView = (ImageView)findViewById(runner.getViewId());
+            Runner killedRunner = item.getValue();
+            killedRunner.setRunning(false);
+            killedRunner.setCurrentRoute(yMap.getMainRoute());
+            killedRunner.setPosition(0);
+            ImageView killedRunnerView = (ImageView)findViewById(killedRunner.getViewId());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            content_view.removeView(runnerView);
-            if(runner.isOpponent()){
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+            content_view.removeView(killedRunnerView);
+            Log.d("Retreating " + killedRunner.getName());
+            if(killer.isOpponent()){
                 // 상대방이면
-                params.width = initSizeOpp[0];
-                params.height = initSizeOpp[1];
-                checker_container_opp.addView(runnerView);
+                params.width  = initSizeMy[0];
+                params.height = initSizeMy[1];
+                killedRunnerView.setLayoutParams(params);
+                checker_container_my.addView(killedRunnerView);
             }else{
                 // If it's mine
-                params.width = initSizeMy[0];
-                params.height = initSizeMy[1];
-                checker_container_my.addView(runnerView);
+                params.width  = initSizeOpp[0];
+                params.height = initSizeOpp[1];
+                killedRunnerView.setLayoutParams(params);
+                checker_container_opp.addView(killedRunnerView);
             }
         }
 
         StringBuffer msg = new StringBuffer();
         msg.append(killed.size() > 1 ? "Multi kill] " : "");
         msg.append(killer.isOpponent() ? "Opponent's" : "Your");
-        msg.append(" '" + killer + "' killed ");
+        msg.append(" '" + killer.getName() + "' killed ");
         if (killer.isOpponent()) {
             msg.append("your ");
         } else {
@@ -785,16 +795,19 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         }
         msg.append(killed.size() > 1 ? "runners!!!" : "runner!");
 
-        if(((StepToMoveInfo)currStepToMove.getTag()).getStepCnt() !=YUT){
+        int stepToMove = ((StepToMoveInfo)currStepToMove.getTag()).getStepCnt();
+        if( stepToMove!=YUT){
             if(!killer.isOpponent()) {
+                // If my turn
                 msg.append("\nRoll the dice one more time!");
             }
             Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
-            // Roll once again
-            rollDice();
         }else{
             Toast.makeText(this, msg.toString(), Toast.LENGTH_SHORT).show();
         }
+
+        MoveStatus status = runnerMovingProcess(killerView, destStep);
+        killer.addPosition(stepToMove);
     }
 
 
@@ -824,11 +837,11 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         flame_circle.setVisibility(View.VISIBLE);
         run_advisory.setTextColor(ContextCompat.getColor(
                 this, R.color.font_color_order_summary));
-        if (currStepToMove!=null && ((StepToMoveInfo) currStepToMove.getTag()).getStepCnt() == YUT){
-            run_advisory.setText("Roll the dice\none more time!");
-        }else{
+//        if (currStepToMove!=null && ((StepToMoveInfo) currStepToMove.getTag()).getStepCnt() == YUT){
+//            run_advisory.setText("Roll the dice\none more time!");
+//        }else{
             run_advisory.setText("Your turn,\nRoll the dice");
-        }
+//        }
 
     }
 
