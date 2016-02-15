@@ -40,64 +40,64 @@ public class YutMap implements AppConst {
         this.CARD_HEIGHT = cardHeight;
 
         // 홈
-        BoardStep home = new BoardStep(9, null, ANGLE_180);
+        BoardStep home = new BoardStep(null, ANGLE_180);
         // 첫번째 지름길 포인트
-        BoardStep interRT = new BoardStep(1, borderRoute3, ANGLE_90);
+        BoardStep interRT = new BoardStep(borderRoute3, ANGLE_90);
 
         // 둘레길 4
-        borderRoute2.add(new BoardStep(0, null, ANGLE_270));
-        borderRoute2.add(new BoardStep(0, null, ANGLE_180 + EACH_STEP_ANGLE * 4));
-        borderRoute2.add(new BoardStep(0, null, ANGLE_180 + EACH_STEP_ANGLE * 3));
-        borderRoute2.add(new BoardStep(0, null, ANGLE_180 + EACH_STEP_ANGLE * 2));
-        borderRoute2.add(new BoardStep(0, null, ANGLE_180 + EACH_STEP_ANGLE * 1));
+        borderRoute2.add(new BoardStep(null, ANGLE_270));
+        borderRoute2.add(new BoardStep(null, ANGLE_180 + EACH_STEP_ANGLE * 4));
+        borderRoute2.add(new BoardStep(null, ANGLE_180 + EACH_STEP_ANGLE * 3));
+        borderRoute2.add(new BoardStep(null, ANGLE_180 + EACH_STEP_ANGLE * 2));
+        borderRoute2.add(new BoardStep(null, ANGLE_180 + EACH_STEP_ANGLE * 1));
         borderRoute2.add(home);
 
         // 지름길 5 (홈으로 오는 길)
-        borderRoute5.add(new BoardStep(0, null, ANGLE_180, 1/3f));
-        borderRoute5.add(new BoardStep(0, null, ANGLE_180, 2/3f));
+        borderRoute5.add(new BoardStep(null, ANGLE_180, 1/3f));
+        borderRoute5.add(new BoardStep(null, ANGLE_180, 2/3f));
         borderRoute5.add(home);
         // 중앙 포인트: 둘레길3-1, 3-2, 4가 join 하는 point
-        BoardStep interCenter = new BoardStep(4, borderRoute5, ANGLE_0, 0);
+        BoardStep interCenter = new BoardStep(borderRoute5, ANGLE_0, 0);
 
         // 지름길 3-1 (첫번째 Intersection)
-        borderRoute3.add(new BoardStep(0, null, ANGLE_90, 2/3f));
-        borderRoute3.add(new BoardStep(0, null, ANGLE_90, 1/3f));
+        borderRoute3.add(new BoardStep(null, ANGLE_90, 2/3f));
+        borderRoute3.add(new BoardStep(null, ANGLE_90, 1/3f));
         borderRoute3.add(interCenter);
 
         // 지름길 3-2 (첫번째 Intersection 연장)
-        borderRoute3.add(new BoardStep(0, null, ANGLE_270, 1/3f));
-        borderRoute3.add(new BoardStep(0, null, ANGLE_270, 2/3f));
+        borderRoute3.add(new BoardStep(null, ANGLE_270, 1/3f));
+        borderRoute3.add(new BoardStep(null, ANGLE_270, 2/3f));
         borderRoute3.addAll(borderRoute2);
 
         // 지름길 4 (두번째 Intersection)
-        borderRoute4.add(new BoardStep(0, null, ANGLE_0, 2/3f));
-        borderRoute4.add(new BoardStep(0, null, ANGLE_0, 1/3f));
+        borderRoute4.add(new BoardStep(null, ANGLE_0, 2/3f));
+        borderRoute4.add(new BoardStep(null, ANGLE_0, 1/3f));
         borderRoute4.add(interCenter);
         borderRoute4.addAll(borderRoute5);
 
         // 두번째 지름길 포인트
-        BoardStep interLT = new BoardStep(2, borderRoute4, ANGLE_0);
+        BoardStep interLT = new BoardStep(borderRoute4, ANGLE_0);
 
         // 둘레길 1
         borderRoute1.add(home);
-        borderRoute1.add(new BoardStep(0, null, ANGLE_180 - EACH_STEP_ANGLE * 1));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_180 - EACH_STEP_ANGLE * 2));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_180 - EACH_STEP_ANGLE * 3));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_180 - EACH_STEP_ANGLE * 4));
+        borderRoute1.add(new BoardStep(null, ANGLE_180 - EACH_STEP_ANGLE * 1));
+        borderRoute1.add(new BoardStep(null, ANGLE_180 - EACH_STEP_ANGLE * 2));
+        borderRoute1.add(new BoardStep(null, ANGLE_180 - EACH_STEP_ANGLE * 3));
+        borderRoute1.add(new BoardStep(null, ANGLE_180 - EACH_STEP_ANGLE * 4));
         borderRoute1.add(interRT);
 
         // 둘레길 2
-        borderRoute1.add(new BoardStep(0, null, ANGLE_90 - EACH_STEP_ANGLE * 1));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_90 - EACH_STEP_ANGLE * 2));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_90 - EACH_STEP_ANGLE * 3));
-        borderRoute1.add(new BoardStep(0, null, ANGLE_90 - EACH_STEP_ANGLE * 4));
+        borderRoute1.add(new BoardStep(null, ANGLE_90 - EACH_STEP_ANGLE * 1));
+        borderRoute1.add(new BoardStep(null, ANGLE_90 - EACH_STEP_ANGLE * 2));
+        borderRoute1.add(new BoardStep(null, ANGLE_90 - EACH_STEP_ANGLE * 3));
+        borderRoute1.add(new BoardStep(null, ANGLE_90 - EACH_STEP_ANGLE * 4));
         borderRoute1.add(interLT);
 
         // 둘레길 3
-        borderRoute1.add(new BoardStep(0, null, - EACH_STEP_ANGLE * 1));
-        borderRoute1.add(new BoardStep(0, null, - EACH_STEP_ANGLE * 2));
-        borderRoute1.add(new BoardStep(0, null, - EACH_STEP_ANGLE * 3));
-        borderRoute1.add(new BoardStep(0, null, - EACH_STEP_ANGLE * 4));
+        borderRoute1.add(new BoardStep(null, - EACH_STEP_ANGLE * 1));
+        borderRoute1.add(new BoardStep(null, - EACH_STEP_ANGLE * 2));
+        borderRoute1.add(new BoardStep(null, - EACH_STEP_ANGLE * 3));
+        borderRoute1.add(new BoardStep(null, - EACH_STEP_ANGLE * 4));
         // 둘레길 4 Join 포인트
         borderRoute1.addAll(borderRoute2);
 
@@ -109,7 +109,7 @@ public class YutMap implements AppConst {
     }
 
 
-    public LinkedList<BoardStep> getSingleRoute(){
+    public LinkedList<BoardStep> getMainRoute(){
         return this.borderRoute1;
     }
     public LinkedList<BoardStep>[] getAllRoutes(){

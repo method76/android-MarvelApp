@@ -16,14 +16,13 @@ import java.util.LinkedList;
 public class BoardStep implements AppConst {
 
     boolean opponent;
-    int stepType, totalPower, x, y;   // 0:normal step, 1+:intersection no
+    int totalPower, x, y;   // 0:normal step, 1+:intersection no
     double angle, radiusRatio;
     LinkedList<BoardStep> shortcutRoute;
     HashMap<Integer, Runner> currRunners   = new HashMap<Integer, Runner>();
     HashMap<Integer, Runner> killedRunners = new HashMap<Integer, Runner>();
 
-    public BoardStep(int type, LinkedList<BoardStep> next, double angle){
-        this.stepType       = type;
+    public BoardStep(LinkedList<BoardStep> next, double angle){
         this.shortcutRoute  = next;
         this.angle          = angle;
         this.radiusRatio    = 1d;
@@ -35,22 +34,20 @@ public class BoardStep implements AppConst {
                 - YutMap.RADIUS * radiusRatio * Math.cos(angle))*.79d);
     }
 
-    public BoardStep(int type, LinkedList<BoardStep> next, double angle,
-                     double radiusRatio){
-        this.stepType       = type;
+    public BoardStep(LinkedList<BoardStep> next, double angle, double radiusRatio){
         this.shortcutRoute  = next;
         this.angle          = angle;
         this.radiusRatio    = radiusRatio;
         if(radiusRatio!=0) {
             this.x = (int) (YutMap.MARGIN_LEFT +
                     (YutMap.RADIUS + YutMap.RADIUS * radiusRatio * Math.sin(angle)
-                            + (Math.cos(angle) * YutMap.RADIUS * SHEAR_FACTOR))
-            );
+                        + (Math.cos(angle) * YutMap.RADIUS * SHEAR_FACTOR)));
             this.y = (int) (YutMap.MARGIN_TOP + (YutMap.RADIUS
                     - YutMap.RADIUS * radiusRatio * Math.cos(angle)) * .79d);
         }else{
-            this.x = YutMap.MARGIN_LEFT +YutMap.RADIUS;
-            this.y = YutMap.MARGIN_TOP +YutMap.RADIUS;
+            this.x = YutMap.MARGIN_LEFT + YutMap.RADIUS;
+            this.y = (int) (YutMap.MARGIN_TOP + (YutMap.RADIUS
+                    - YutMap.RADIUS * 1.0f * Math.cos(ANGLE_90)) * .79d);
         }
     }
 
@@ -76,11 +73,19 @@ public class BoardStep implements AppConst {
     }
 
     public int getWidth(){
-        return (int)((3 - Math.cos(this.angle))/3*YutMap.CARD_WIDTH);
+        if(this.radiusRatio!=0) {
+            return (int) ((3 - Math.cos(this.angle)) / 3 * YutMap.CARD_WIDTH);
+        }else{
+            return (int) ((3 - Math.cos(ANGLE_90)) / 3 * YutMap.CARD_WIDTH);
+        }
     }
 
     public int getHeight(){
-        return (int)((3 - Math.cos(this.angle))/3*YutMap.CARD_HEIGHT);
+        if(this.radiusRatio!=0) {
+            return (int) ((3 - Math.cos(this.angle)) / 3 * YutMap.CARD_HEIGHT);
+        }else{
+            return (int) ((3 - Math.cos(ANGLE_90)) / 3 * YutMap.CARD_HEIGHT);
+        }
     }
 
     public boolean isOccupied() {
@@ -95,13 +100,18 @@ public class BoardStep implements AppConst {
         this.currRunners.clear();
     }
 
+    public void removeRunner(Runner runner){
+        if(this.currRunners.containsKey(runner.getId())){
+            this.currRunners.remove(runner.getId());
+        }
+    }
+
     /**
      * Todo: Remove and add
      * @param runner
      * @return
      */
     public MoveStatus addRunner(Runner runner) {
-        this.opponent = runner.isOpponent();
         runner.setRunning(true);
         if(this.currRunners !=null && currRunners.size() > 0){
             // If some runner exists
@@ -110,15 +120,18 @@ public class BoardStep implements AppConst {
                 this.killedRunners = new HashMap<Integer, Runner>(this.currRunners);
                 this.currRunners.clear();
                 this.currRunners.put(runner.getId(), runner);
+                this.opponent = runner.isOpponent();
                 return MoveStatus.KILL;
             }else{
                 // If the existing checker is mine
                 this.currRunners.put(runner.getId(), runner);
+                this.opponent = runner.isOpponent();
                 return MoveStatus.JOIN;
             }
         }else{
             // If not any runner exists
             this.currRunners.put(runner.getId(), runner);
+            this.opponent = runner.isOpponent();
             return MoveStatus.NORMAL;
         }
     }

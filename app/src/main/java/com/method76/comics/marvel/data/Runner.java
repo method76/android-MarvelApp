@@ -1,8 +1,7 @@
 package com.method76.comics.marvel.data;
 
-import android.widget.ImageView;
-
 import com.method76.comics.marvel.common.constant.AppConst;
+import com.method76.common.util.Log;
 
 import java.util.LinkedList;
 
@@ -11,7 +10,7 @@ import java.util.LinkedList;
  */
 public class Runner implements AppConst {
 
-    int position, power, id, joinDepth, viewId;
+    int position, power, id, viewId;
     boolean opponent, running;
     String name;
     LinkedList<BoardStep> currentRoute;
@@ -37,6 +36,7 @@ public class Runner implements AppConst {
     }
 
     public BoardStep getCurrentBoardStep() {
+        Log.w("currSize: " + currentRoute.size() + ", runnerPos: " + this.position);
         return currentRoute.get(this.position);
     }
 
@@ -52,16 +52,8 @@ public class Runner implements AppConst {
         this.id = id;
     }
 
-    public String getImgUrl() {
-        return THUMBS_URL + this.id + ".jpg";
-    }
-
     public boolean isOpponent() {
         return opponent;
-    }
-
-    public void setOpponent(boolean opponent) {
-        this.opponent = opponent;
     }
 
     public int getPosition() {
@@ -96,19 +88,4 @@ public class Runner implements AppConst {
         this.viewId = viewId;
     }
 
-//    public int getX() {
-//        return x;
-//    }
-//
-//    public void setX(int x) {
-//        this.x = x;
-//    }
-//
-//    public int getY() {
-//        return y;
-//    }
-//
-//    public void setY(int y) {
-//        this.y = y;
-//    }
 }
