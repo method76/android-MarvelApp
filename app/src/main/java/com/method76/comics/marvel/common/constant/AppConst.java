@@ -49,6 +49,7 @@ public interface AppConst {
     enum MoveStatus{
         NORMAL,
         KILL,
-        JOIN
+        JOIN,
+        ESCAPE
     }
 }

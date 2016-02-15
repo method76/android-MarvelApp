@@ -107,15 +107,12 @@ public class BoardStep implements AppConst {
             // If some runner exists
             if(this.isOpponent() != runner.isOpponent()){
                 // If the existing checker is Opponent's
-                this.killedRunners = new HashMap<Integer, Runner>();
-                this.killedRunners.putAll(this.currRunners);
+                this.killedRunners = new HashMap<Integer, Runner>(this.currRunners);
                 this.currRunners.clear();
                 this.currRunners.put(runner.getId(), runner);
-                runner.setJoinDepth(0);
                 return MoveStatus.KILL;
             }else{
                 // If the existing checker is mine
-                runner.setJoinDepth(currRunners.size());
                 this.currRunners.put(runner.getId(), runner);
                 return MoveStatus.JOIN;
             }
@@ -135,7 +132,7 @@ public class BoardStep implements AppConst {
     }
 
     public boolean isOpponent(boolean isMyTurn) {
-        return opponent==isMyTurn;
+        return opponent!=isMyTurn;
     }
 
 }

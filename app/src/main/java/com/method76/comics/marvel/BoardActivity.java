@@ -326,9 +326,8 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         switch(stepsToMove){
             case YUT:
                 // If Yut
-                String host = isMyTurn?"You":"Opponent";
-                Toast.makeText(this, host + " made 'Yut', roll one more time!",
-                        Toast.LENGTH_SHORT).show();
+                String msg = isMyTurn?"You made 'Yut', roll one more time!":"Opponent made 'Yut'!";
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
                 if(isMyTurn==false){
                     // 상대방이 윷이면
                     new Handler().postDelayed(new Runnable() {
@@ -472,7 +471,7 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
             }
         }else{
             // If opponent's turn
-            run_advisory.setText("Opponent is choosing a runner...");
+            run_advisory.setText("Opponent is Choosing a runner...");
             remainderCnt = cardArrOpp.size();
             final int idx = (remainderCnt>1)?(int)(Math.random()*remainderCnt):0;
             new Handler().postDelayed(new Runnable() {
@@ -542,7 +541,28 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
             routeToGo = runner.getCurrentBoardStep().getShortcutRoute();
             runner.setCurrentRoute(routeToGo);
             destIdx = -1 + ((StepToMoveInfo)currStepToMove.getTag()).getStepCnt();
-            destStep = routeToGo.get(destIdx);
+            if(destIdx < routeToGo.size()) {
+                destStep = routeToGo.get(destIdx);
+            }else{
+                // Escape!!
+                isEscaped = true;
+                String prefix = "Your";
+                if(!isMyTurn){
+                    prefix = "Opponent's";
+                }
+                Toast.makeText(this, prefix + " runner '" + runner.getName()
+                                + "' escaped from the prison",
+                        Toast.LENGTH_SHORT).show();
+                runnerView.setVisibility(View.GONE);
+                cardArrMy.remove(runnerView);
+                if(isMyTurn) {
+                    escapeCnt[0]++;
+                    esc_cnt_my.setText(String.format(getString(R.string.esc_yours), escapeCnt[0]));
+                }else{
+                    escapeCnt[1]++;
+                    esc_cnt_opp.setText(String.format(getString(R.string.esc_opps), escapeCnt[1]));
+                }
+            }
         }else{
             // 현재 점에 지름길이 없는 경우
             routeToGo = runner.getCurrentRoute();
@@ -553,7 +573,11 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
             }else{
                 // Escape!!
                 isEscaped = true;
-                Toast.makeText(this, "Your runner '" + runner.getName()
+                String prefix = "Your";
+                if(!isMyTurn){
+                    prefix = "Opponent's";
+                }
+                Toast.makeText(this, prefix + " runner '" + runner.getName()
                                 + "' escaped from the prison",
                         Toast.LENGTH_SHORT).show();
                 runnerView.setVisibility(View.GONE);
@@ -581,25 +605,22 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
                     // When killed enemy
                     final HashMap<Integer, Runner> killed = destStep.getKilledRunners();
                     final String killer = runner.getName();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            //
-                            retreatKilledRunner(killer, killed);
-                        }
-                    }, 1000);
+                    retreatKilledRunner(killer, killed);
                 } else {
                     // When joined with teammates
                     String host = isMyTurn ? "Your" : "Opponent's";
                     Toast.makeText(this, host + " runner '" + runner.getName()
                             + "' joined with teammate!", Toast.LENGTH_SHORT).show();
+
                 }
             }else{
                 // 상대방이 점유 중이 아니면
                 if(destStep.getShortcutRoute()!=null){
-                    String host = isMyTurn?"You":"Opponent";
-                    Toast.makeText(this, host + " can take a shortcut there!",
-                            Toast.LENGTH_SHORT).show();
+                    // 지름길이 있으면
+                    if(isMyTurn) {
+                        Toast.makeText(this, "You can take a shortcut there!",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
@@ -664,8 +685,10 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         } else {
             chooseMovableSteps();
         }
-        runnerMovingProcess(runnerView, destStep);
-        runner.setPosition(destIdx);
+        if(isEscaped==false) {
+            runnerMovingProcess(runnerView, destStep);
+            runner.setPosition(destIdx);
+        }
 
     }
 
@@ -689,11 +712,19 @@ public class BoardActivity extends BaseCompatActivity implements AppConst,
         MoveStatus status = null;
         // Todo: Remove then add
         if(newRoute!=null){
-            // If has shortcut route
+            // If has shortcut route: Exception
             status = newRoute.get(stepCnt).addRunner(runner);
         }else{
             // Else
             status = currRoute.get(stepCnt).addRunner(runner);
+        }
+
+        if(status==MoveStatus.JOIN){
+
+        }else if(status==MoveStatus.KILL){
+
+        }else if(status==MoveStatus.NORMAL){
+
         }
 
         // Real moving

@@ -88,14 +88,6 @@ public class Runner implements AppConst {
         this.name = name;
     }
 
-    public int getJoinDepth() {
-        return joinDepth;
-    }
-
-    public void setJoinDepth(int joinDepth) {
-        this.joinDepth = joinDepth;
-    }
-
     public int getViewId() {
         return viewId;
     }
