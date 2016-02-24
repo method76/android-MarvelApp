@@ -15,7 +15,7 @@ public class AndroidUtil {
 
     private static Toast mCurrentToast;
 
-    public static int dpToPixel(Context context, int dp){
+    public static int dpToPixel(Context context, float dp){
         Resources r = context.getResources();
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
     }

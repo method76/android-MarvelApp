@@ -11,6 +11,6 @@ public interface CommonConst {
     long TIMEOUT_SESSION            = 5 * 60 * 1000;
     int TIMEOUT_HTTP_CON            = 8 * 1000;
     int MAX_RETRIES                 = 2;
-
+    int GLIDE_DISK_CACHE            = 10 * 1024 * 1024;
 
 }

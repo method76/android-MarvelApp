@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import com.method76.comics.marvel.common.constant.AppConst;
 import com.method76.common.base.BaseCompatActivity;
-import com.method76.common.util.Log;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

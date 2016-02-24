@@ -1,15 +1,11 @@
 package com.method76.comics.marvel.common.map;
 
 import android.content.Context;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.method76.comics.marvel.common.constant.AppConst;
 import com.method76.comics.marvel.data.BoardStep;
-import com.method76.comics.marvel.data.Runner;
-import com.method76.comics.marvel.data.StepToMoveInfo;
 import com.method76.common.util.AndroidUtil;
+import com.method76.common.util.Log;
 
 import java.util.LinkedList;
 
@@ -24,6 +20,8 @@ public class YutMap implements AppConst {
     public static int CARD_WIDTH;
     public static int CARD_HEIGHT;
 
+    private BoardStep home;
+
     private LinkedList<BoardStep> borderRoute1 = new LinkedList<BoardStep>();
     private LinkedList<BoardStep> borderRoute2 = new LinkedList<BoardStep>();
 
@@ -31,16 +29,16 @@ public class YutMap implements AppConst {
     private LinkedList<BoardStep> borderRoute4 = new LinkedList<BoardStep>();
     private LinkedList<BoardStep> borderRoute5 = new LinkedList<BoardStep>();
 
-    public YutMap(Context context, int diameterDp, int cardWidth, int cardHeight){
+    public YutMap(Context context, int diameterDp){
 
         this.RADIUS      = AndroidUtil.dpToPixel(context, (int)(diameterDp*0.47f));
         this.MARGIN_TOP  = AndroidUtil.dpToPixel(context, 22);
         this.MARGIN_LEFT = AndroidUtil.dpToPixel(context, 37);
-        this.CARD_WIDTH  = cardWidth;
-        this.CARD_HEIGHT = cardHeight;
+        this.CARD_WIDTH  = AndroidUtil.dpToPixel(context, 37.5f);
+        this.CARD_HEIGHT = AndroidUtil.dpToPixel(context, 50f);
 
         // 홈
-        BoardStep home = new BoardStep(null, ANGLE_180);
+        home = new BoardStep(null, ANGLE_180);
 
         // 둘레길 4
         borderRoute2.add(new BoardStep(null, ANGLE_270));
@@ -100,13 +98,12 @@ public class YutMap implements AppConst {
         // 둘레길 4 Join 포인트
         borderRoute1.addAll(borderRoute2);
 
+        Log.w("Home x/y: " + home.getX() + "/" + home.getY());
     }
 
-    public int[] getStartPoint(){
-        int[] ret = {borderRoute1.get(0).getX(), borderRoute1.get(0).getY()};
-        return ret;
+    public BoardStep getHome(){
+        return home;
     }
-
 
     public LinkedList<BoardStep> getMainRoute(){
         return this.borderRoute1;

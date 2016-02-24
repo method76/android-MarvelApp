@@ -14,4 +14,6 @@
     <string name="success">SUCCESS</string>
     <string name="error">ERROR</string>
 
+    <string name="quit_go_prev">Do you want to quit \'Yut-nori\'?</string>
+
 </resources>

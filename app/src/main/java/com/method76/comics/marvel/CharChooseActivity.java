@@ -16,16 +16,17 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.method76.comics.marvel.adapter.ThumbnailAdapter;
 import com.method76.comics.marvel.common.constant.AppConst;
 import com.method76.comics.marvel.data.MarvelCharacters;
 import com.method76.comics.marvel.data.substr.MarvelCharacter;
+import com.method76.comics.marvel.view.ImageToast;
 import com.method76.common.base.BaseApplication;
 import com.method76.common.base.BaseCompatActivity;
 import com.method76.common.constant.CommonConst;
 import com.method76.common.http.GsonRequest;
 import com.method76.common.util.Log;
-import com.method76.common.util.PrefUtil;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -88,7 +89,8 @@ public class CharChooseActivity extends BaseCompatActivity implements CommonCons
 
         setTitleStr(String.format(getString(R.string.select_checkers), selectedCnt));
         String url = GET_CHARACTERS + "?limit=" + GRID_LIST_CNT;
-        Glide.with(this).load(R.drawable.bg_flame).into(bg_flame);
+        Glide.with(this).load(R.drawable.bg_flame)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(bg_flame);
 
         getBaseApplication().getRequestQueue().add(new RestfulRequest(url).getGsonRequest());
     }
@@ -201,12 +203,14 @@ public class CharChooseActivity extends BaseCompatActivity implements CommonCons
     private void displayCards(){
         int idx = 3;
         for(Map.Entry<Integer, String> et : myChosenChars.entrySet()){
-            Glide.with(this).load(THUMBS_URL + et.getKey() + ".jpg").into(cards[idx]);
+            Glide.with(this).load(THUMBS_URL + et.getKey() + ".jpg")
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(cards[idx]);
             idx--;
         }
         if(idx>-1){
-            while(idx>0){
-                Glide.with(this).load(R.drawable.ic_card_back).into(cards[idx]);
+            while(idx> 0) {
+                Glide.with(this).load(R.drawable.ic_card_back)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL).into(cards[idx]);
                 idx--;
             }
         }
@@ -264,7 +268,8 @@ public class CharChooseActivity extends BaseCompatActivity implements CommonCons
     public void onBackPressed() {
         if(canEscape ==false) {
             canEscape = true;
-            Toast.makeText(this, "Press back button again to quit", Toast.LENGTH_SHORT).show();
+            ImageToast.makeText(this, "Press back again to quit",
+                    Toast.LENGTH_SHORT, ImageToast.Status.NEUTRAL).show();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

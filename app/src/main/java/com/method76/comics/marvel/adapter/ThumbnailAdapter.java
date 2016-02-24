@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -15,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.method76.comics.marvel.R;
 import com.method76.comics.marvel.common.constant.AppConst;
 import com.method76.comics.marvel.data.substr.MarvelCharacter;
-import com.method76.common.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class ThumbnailAdapter extends
         viewHolder.btn_hidden.setTag(model);
         Glide.with(context).load(
                 model.getThumbnail().getPath() + "." + model.getThumbnail().getExtension())
-                    .into(viewHolder.grid_item_image);
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(viewHolder.grid_item_image);
     }
 
     @Override

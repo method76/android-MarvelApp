@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.method76.common.callback.ItemPurchaseListener;
 
 /**
- * Created by SungjoonKim on 2016-01-01.
+ * Created by Sungjoon Kim on 2016-01-01.
  */
 public class ItemService {
 

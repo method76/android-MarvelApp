@@ -28,7 +28,7 @@ public interface AppConst {
     int GRID_LIST_CNT                   = 30;
     int FIRE_EFFECT_DURATION            = 500;
     int BOARD_DIAMETER_DP               = 330;
-    int OPPONENT_CONSIDER_INTERVAL      = 4000;
+    int OPPONENT_CONSIDER_INTERVAL      = 3300;
 
     double START_ANGLE_SPLASH           = Math.PI/ALL_POINT_CNT;
     double ANGLE_X_LEAN                 = Math.PI * 0.2d;
@@ -52,4 +52,5 @@ public interface AppConst {
         JOIN,
         ESCAPE
     }
+
 }

@@ -1,11 +1,12 @@
 package com.method76.comics.marvel.data;
 
 import com.method76.comics.marvel.common.constant.AppConst;
-import com.method76.common.util.Log;
+import com.method76.comics.marvel.common.map.YutMap;
 
 import java.util.LinkedList;
 
 /**
+ * Runner's Characteristics defined
  * Created by Sungjoon Kim on 2016-01-30.
  */
 public class Runner implements AppConst {
@@ -36,7 +37,7 @@ public class Runner implements AppConst {
     }
 
     public BoardStep getCurrentBoardStep() {
-        Log.w("currSize: " + currentRoute.size() + ", runnerPos: " + this.position);
+        // Exception!!!! Here!!
         return currentRoute.get(this.position);
     }
 
@@ -90,6 +91,12 @@ public class Runner implements AppConst {
 
     public void setViewId(int viewId) {
         this.viewId = viewId;
+    }
+
+    public void initialize(YutMap map){
+        this.currentRoute = map.getMainRoute();
+        this.position     = 0;
+        this.running      = true;
     }
 
 }

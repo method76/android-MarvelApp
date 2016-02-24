@@ -1,10 +1,7 @@
 package com.method76.comics.marvel.data;
 
-import com.method76.comics.marvel.data.substr.MarvelCharacter;
-
-import java.util.List;
-
 /**
+ * Result data of Rolz API
  * Created by Sungjoon Kim on 2016-01-30.
  */
 public class RolzResult {

@@ -11,16 +11,17 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
+ * Characteristics of each step on Yut-nori board
  * Created by Sungjoon Kim on 2016-01-30.
  */
 public class BoardStep implements AppConst {
 
     boolean opponent;
-    int totalPower, x, y;   // 0:normal step, 1+:intersection no
+    int x, y;
     double angle, radiusRatio;
     LinkedList<BoardStep> shortcutRoute;
-    HashMap<Integer, Runner> currRunners   = new HashMap<Integer, Runner>();
-    HashMap<Integer, Runner> killedRunners = new HashMap<Integer, Runner>();
+    HashMap<Integer, Runner> occupyingRunners = new HashMap<Integer, Runner>();
+
 
     public BoardStep(LinkedList<BoardStep> next, double angle){
         this.shortcutRoute  = next;
@@ -65,88 +66,67 @@ public class BoardStep implements AppConst {
     }
 
     public int getMultiX(Context ctx){
-        return this.x + AndroidUtil.dpToPixel(ctx, -5*currRunners.size());
+        return this.x + AndroidUtil.dpToPixel(ctx, -5 * occupyingRunners.size());
     }
 
     public int getMultiY(Context ctx){
-        return this.y + AndroidUtil.dpToPixel(ctx, 4*currRunners.size());
+        return this.y + AndroidUtil.dpToPixel(ctx, 4 * occupyingRunners.size());
     }
 
     public int getWidth(){
         if(this.radiusRatio!=0) {
-            return (int) ((3 - Math.cos(this.angle)) / 3 * YutMap.CARD_WIDTH);
+            // 일반적인 경우
+            return (int) ((4 - Math.cos(this.angle)) / 5 * YutMap.CARD_WIDTH);
         }else{
-            return (int) ((3 - Math.cos(ANGLE_90)) / 3 * YutMap.CARD_WIDTH);
+            return (int) ((4 - Math.cos(ANGLE_90)) / 5 * YutMap.CARD_WIDTH);
         }
     }
 
     public int getHeight(){
         if(this.radiusRatio!=0) {
-            return (int) ((3 - Math.cos(this.angle)) / 3 * YutMap.CARD_HEIGHT);
+            // 일반적인 경우
+            return (int) ((3 - Math.cos(this.angle)) /4 * YutMap.CARD_HEIGHT);
         }else{
-            return (int) ((3 - Math.cos(ANGLE_90)) / 3 * YutMap.CARD_HEIGHT);
+            return (int) ((3 - Math.cos(ANGLE_90)) / 4 * YutMap.CARD_HEIGHT);
         }
     }
 
     public boolean isOccupied() {
-        return currRunners.size()>0;
+        return occupyingRunners.size()>0;
     }
 
     public LinkedList<BoardStep> getShortcutRoute() {
         return shortcutRoute;
     }
 
-    public void removeRunners(){
-        this.currRunners.clear();
+    public boolean hasShortcut() {
+        return (shortcutRoute!=null&&shortcutRoute.size()>0)?true:false;
+    }
+
+    public void removeAllRunners(){
+        this.occupyingRunners.clear();
     }
 
     public void removeRunner(Runner runner){
-        if(this.currRunners.containsKey(runner.getId())){
-            this.currRunners.remove(runner.getId());
+        if(this.occupyingRunners.containsKey(runner.getId())){
+            this.occupyingRunners.remove(runner.getId());
         }
     }
 
-    /**
-     * Todo: Remove and add
-     * @param runner
-     * @return
-     */
-    public MoveStatus moveRunner(BoardStep prevStep, Runner runner) {
-        prevStep.removeRunner(runner);
-        runner.setRunning(true);
-        if(this.currRunners !=null && currRunners.size() > 0){
-            // If some runner exists
-            if(this.isOpponent() != runner.isOpponent()){
-                // If the existing checker is Opponent's
-                this.killedRunners = new HashMap<Integer, Runner>(this.currRunners);
-                this.currRunners.clear();
-                this.currRunners.put(runner.getId(), runner);
-                this.opponent = runner.isOpponent();
-                return MoveStatus.KILL;
-            }else{
-                // If the existing checker is mine
-                this.currRunners.put(runner.getId(), runner);
-                this.opponent = runner.isOpponent();
-                return MoveStatus.JOIN;
-            }
-        }else{
-            // If not any runner exists
-            this.currRunners.put(runner.getId(), runner);
-            this.opponent = runner.isOpponent();
-            return MoveStatus.NORMAL;
+    public void addRunner(Runner runner){
+        if(isOtherTeam(runner)){
+            this.occupyingRunners.clear();
         }
+        this.opponent = runner.isOpponent();
+        this.occupyingRunners.put(runner.getId(), runner);
     }
 
-    public HashMap<Integer, Runner> toBeKilledRunners() {
-        return this.currRunners;
+    public HashMap<Integer, Runner> occupyingRunners() {
+        return this.occupyingRunners;
     }
 
-    public boolean isOpponent() {
-        return opponent;
-    }
-
-    public boolean isOpponent(boolean isMyTurn) {
-        return opponent!=isMyTurn;
+    public boolean isOtherTeam(Runner curRunner) {
+        return opponent!=curRunner.isOpponent();
     }
 
 }

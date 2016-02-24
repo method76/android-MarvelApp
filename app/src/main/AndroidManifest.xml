@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:name="com.method76.common.base.BaseApplication"
         >
+        <meta-data
+            android:name="com.method76.common.service.GlideSetting"
+            android:value="GlideModule" />
         <!--스플래시 -->
         <activity
             android:name=".SplashActivity"
