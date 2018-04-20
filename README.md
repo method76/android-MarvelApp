@@ -24,7 +24,7 @@ The shortcut route of Yut-nori is like this.<br>
 <p>You may find how to operate this game app on <br>
 https://www.youtube.com/watch?v=U-1biCahUKY</p>
 
-<img src="https://i.ebayimg.com/images/g/lYkAAOSwiDFYNhVz/s-l1600.jpg">
+<img width="360" src="https://i.ebayimg.com/images/g/lYkAAOSwiDFYNhVz/s-l1600.jpg">
 * Now the Yut-nori board looks like with shield of X-men. :)
 
 <p>Made with AndroidStudio IDE and Volley, Gson, Glide library.</p>
